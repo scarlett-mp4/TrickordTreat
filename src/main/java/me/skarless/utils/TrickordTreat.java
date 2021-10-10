@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import me.skarless.Main;
 import me.skarless.commands.*;
 import me.skarless.event.Timer;
+import me.skarless.listeners.GuildLeaveListener;
 import me.skarless.listeners.MessageReceivedListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -59,6 +60,7 @@ public class TrickordTreat {
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
         builder.setActivity(Activity.playing("Type: $help"));
         builder.addEventListeners(new MessageReceivedListener());
+        builder.addEventListeners(new GuildLeaveListener());
 
         try {
             jda = builder.build();
