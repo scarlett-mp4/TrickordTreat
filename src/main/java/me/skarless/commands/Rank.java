@@ -55,7 +55,7 @@ public class Rank extends Command {
                 EmbedBuilder embedBuilder = new EmbedBuilder();
                 embedBuilder.setColor(Color.ORANGE);
                 embedBuilder.setTitle("`❌ Error!`");
-                embedBuilder.setDescription("There is currently no ongoing event!");
+                embedBuilder.setDescription("There is currently isn't ongoing event!");
                 e.getChannel().sendMessage(embedBuilder.build()).queue();
 
                 return true;
@@ -73,27 +73,29 @@ public class Rank extends Command {
 
         list.sort(Comparator.comparing(LeaderboardPlayer::score).reversed());
 
-        for (int i = 0; i < list.size(); i++) {
-            LeaderboardPlayer user = list.get(i);
+        try{
+            for (int i = 0; i < list.size(); i++) {
+                LeaderboardPlayer user = list.get(i);
 
-            if(user.user().getId().equals(target.getId())){
-                EmbedBuilder embedBuilder = new EmbedBuilder();
-                embedBuilder.setColor(Color.ORANGE);
-                embedBuilder.setTitle("`💪 " + target.getName() + "'s Rank:`");
-                embedBuilder.setThumbnail(target.getAvatarUrl());
-                embedBuilder.setDescription("**Rank:** " + (i + 1) + "/" + e.getGuild().getMembers().size() + "\n" + "**Score:** " + user.score() + " points");
-                e.getChannel().sendMessage(embedBuilder.build()).queue();
-                return true;
+                if(user.user().getId().equals(target.getId())){
+                    EmbedBuilder embedBuilder = new EmbedBuilder();
+                    embedBuilder.setColor(Color.ORANGE);
+                    embedBuilder.setTitle("`💪 " + target.getName() + "'s Rank:`");
+                    embedBuilder.setThumbnail(target.getAvatarUrl());
+                    embedBuilder.setDescription("**Rank:** " + (i + 1) + "/" + e.getGuild().getMembers().size() + "\n" + "**Score:** " + user.score() + " points");
+                    e.getChannel().sendMessage(embedBuilder.build()).queue();
+                    return true;
+                }
             }
+        }catch(Exception exception){
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setColor(Color.ORANGE);
+            embedBuilder.setTitle("`💪 " + target.getName() + "'s Rank:`");
+            embedBuilder.setThumbnail(target.getAvatarUrl());
+            embedBuilder.setDescription("**Rank:** N/A\n**Score:** 0 points");
+            embedBuilder.addField("No info found!", "It looks like this user has not started playing yet. Make sure to let them know how much fun you're having!", true);
+            e.getChannel().sendMessage(embedBuilder.build()).queue();
         }
-
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.ORANGE);
-        embedBuilder.setTitle("`💪 " + target.getName() + "'s Rank:`");
-        embedBuilder.setThumbnail(target.getAvatarUrl());
-        embedBuilder.setDescription("**Rank:** N/A\n**Score:** 0 points");
-        embedBuilder.addField("No info found!", "It looks like this user has not started playing yet. Make sure to let them know how much fun you're having!", true);
-        e.getChannel().sendMessage(embedBuilder.build()).queue();
 
         return true;
     }

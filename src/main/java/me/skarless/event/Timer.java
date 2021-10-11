@@ -21,8 +21,10 @@ public class Timer {
         new Thread(() -> {
             do {
 
-                if (Main.DEBUG)
-                    System.out.println(Cache.monsterList);
+                if (Main.DEBUG){
+                    System.out.println(" ");
+                    System.out.println("Cache: " + Cache.monsterList);
+                }
 
                 try {
                     List<String> serverIDs = new ArrayList<>(TrickordTreat.getConfig().keySet());
@@ -69,8 +71,15 @@ public class Timer {
                                 String finalType = type;
                                 channel.sendMessage(builder.build()).queue((message -> {
                                     Cache.monsterList.add(new ServerData(id, message.getIdLong(), finalMonster, finalType));
-                                    if (Main.DEBUG)
-                                        System.out.println(id + ": sent monster");
+                                    if (Main.DEBUG){
+                                        String name = "null";
+                                        try{
+                                            name = TrickordTreat.getInstance().jda.getGuildById(id).getName();
+                                        }catch(Exception ignored){
+                                        }
+
+                                        System.out.println(id + "/" + name + ": type=" + finalType + " monsterID:" + finalMonster.getId());
+                                    }
                                 }));
                             }
                         } catch (Exception e) {

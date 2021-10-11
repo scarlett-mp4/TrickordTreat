@@ -73,7 +73,7 @@ public class Treat extends Command {
                                 newObject.add(e.getGuild().getId(), serverObject);
                                 TrickordTreat.setConfig(newObject);
                             } else {
-                                channel.sendMessage("This is a treat, not a trick! Try **$treat** instead.").queue();
+                                channel.sendMessage("This is a trick, not a treat! Try **$trick** instead.").queue();
                             }
                             return true;
                         }
