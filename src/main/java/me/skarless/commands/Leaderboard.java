@@ -48,7 +48,7 @@ public class Leaderboard extends Command {
                 EmbedBuilder embedBuilder = new EmbedBuilder();
                 embedBuilder.setColor(Color.ORANGE);
                 embedBuilder.setTitle("`❌ Error!`");
-                embedBuilder.setDescription("There is currently isn't an ongoing event!");
+                embedBuilder.setDescription("There currently isn't an ongoing event!");
                 e.getChannel().sendMessage(embedBuilder.build()).queue();
 
                 return true;
